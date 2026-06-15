@@ -35,15 +35,23 @@ namespace Template.Services
             return RentalMapper.ToDetailsDto(rental);
         }
 
-        public async Task<DetailsRentalDto?> UpdateStatusAsync(int id, RentalStatus status)
+        public async Task<List<DetailsRentalDto>?> UpdateRentalStatusDto(UpdateRentalStatusDto dto)
         {
-            var rental = await _dataContext.Rentals.FindAsync(id);
-            if (rental == null) return null;
+            var rentals = await _dataContext.Rentals
+                .Where(x => x.ClientId == dto.ClientId && x.ReturnDate == null)
+                .ToListAsync();
 
-            rental.Status = status;
+            if (rentals == null || rentals.Count == 0) return null;
+
+            foreach (var rental in rentals)
+            {
+                rental.Status = RentalStatus.Cancelled;
+            }
 
             await _dataContext.SaveChangesAsync();
-            return RentalMapper.ToDetailsDto(rental);
+
+            return rentals.Select(RentalMapper.ToDetailsDto).ToList();
         }
+
     }
 }
