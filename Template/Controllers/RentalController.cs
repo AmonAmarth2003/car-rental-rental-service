@@ -32,14 +32,13 @@ namespace Template.Controllers
             return Created("", created);
         }
 
-        // PATCH /rentals/{id}/status
-        [HttpPatch("{id}/status")]
-        public async Task<IActionResult> UpdateStatus(int id, [FromBody] RentalStatus status)
+        [HttpPut]
+        [Route("/rentals/blocked-status")]
+        public async Task<IActionResult> UpdateBlockedStatus([FromBody] UpdateRentalStatusDto dto)
         {
-            var updated = await _service.UpdateStatusAsync(id, status);
-
+            var updated = await _service.UpdateRentalStatusDto(dto);
             if (updated == null)
-                return NotFound();
+                return Ok();
 
             return Ok(updated);
         }

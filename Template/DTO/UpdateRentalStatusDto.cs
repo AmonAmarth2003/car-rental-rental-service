@@ -4,6 +4,6 @@ namespace Template.DTO
 {
     public class UpdateRentalStatusDto
     {
-        public RentalStatus Status { get; set; }
+        public int ClientId { get; set; }
     }
 }
