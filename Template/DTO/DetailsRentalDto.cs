@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Net.NetworkInformation;
-using Template.Enums;
-
-namespace Template.DTO
+﻿namespace Template.DTO
 {
     public class DetailsRentalDto
     {

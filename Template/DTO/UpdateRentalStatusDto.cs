@@ -1,6 +1,4 @@
-﻿using Template.Enums;
-
-namespace Template.DTO
+﻿namespace Template.DTO
 {
     public class UpdateRentalStatusDto
     {
