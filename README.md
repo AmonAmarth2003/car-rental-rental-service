@@ -59,4 +59,4 @@ Vehicle under maintenance → cancelled
 ## Related Services
 
 - Client Service: https://github.com/AmonAmarth2003/car-rental-client-service
-- Vehicle Service: https://github.com/your-org/vehicle-service
+- Vehicle Service: https://github.com/mateusinacion/car-rental-veiculos-servico

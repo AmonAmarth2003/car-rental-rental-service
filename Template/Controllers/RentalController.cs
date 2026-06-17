@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Template.DTO;
-using Template.Entities;
-using Template.Enums;
-using Template.Services;
 
 namespace Template.Controllers
 {
@@ -28,15 +25,37 @@ namespace Template.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateRentalDto clientDto)
         {
-            var created = await _service.CreateAsync(clientDto);
-            return Created("", created);
+            try
+            {
+                var created = await _service.CreateAsync(clientDto);
+                return Created("", created);
+            }
+            catch (InvalidOperationException e)
+            {
+               return BadRequest(e.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred");
+            }
         }
 
         [HttpPut]
         [Route("/rentals/blocked-status")]
         public async Task<IActionResult> UpdateBlockedStatus([FromBody] UpdateRentalStatusDto dto)
         {
-            var updated = await _service.UpdateRentalStatusDto(dto);
+            var updated = await _service.UpdateRentalStatus(dto);
+            if (updated == null)
+                return Ok();
+
+            return Ok(updated);
+        }
+
+        [HttpPut]
+        [Route("/rentals/maintenance-status")]
+        public async Task<IActionResult> UpdateMaintananceStatus([FromBody] UpdateVehicleStatusDto dto)
+        {
+            var updated = await _service.UpdateRentalByVehicleStatus(dto);
             if (updated == null)
                 return Ok();
 
